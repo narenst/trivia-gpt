@@ -2,8 +2,6 @@ from flask import Flask
 from dynaconf import FlaskDynaconf
 
 from triviagpt.db import init as init_db
-from triviagpt.models.base import BaseModel
-from triviagpt.models.user import User
 from triviagpt.controllers import blue_print
 
 

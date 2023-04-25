@@ -1,4 +1,4 @@
-from triviagpt.db import get_sql_alchemy_engine
+from triviagpt.db import db
 from triviagpt.models.base import BaseModel
 
 from sqlalchemy import String, select
@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, Session
 from typing import Optional
 
 
-class User(BaseModel):
+class User(db.Model):
     """
     Defines the User model.
     """
@@ -25,13 +25,9 @@ class User(BaseModel):
         Create a user.
         """
         user = User(username=username, reference=reference)
-    
-        engine = get_sql_alchemy_engine()
-        with Session(engine) as session:
-            session.add(user)
-            session.commit()
-            session.refresh(user)
-
+        db.session.add(user)
+        db.session.commit()
+        db.session.refresh(user)
         return user
 
 
@@ -40,11 +36,8 @@ class User(BaseModel):
         """
         Get a user by username.
         """        
-        engine = get_sql_alchemy_engine()
-
-        with Session(engine) as session:
-            result = session.execute(select(User).where(User.username == username)).first()
-            return result
+        return db.session.execute(select(User).where(User.username == username)).first()
+        
 
 
     @staticmethod
@@ -52,11 +45,7 @@ class User(BaseModel):
         """
         Get a user by reference.
         """        
-        engine = get_sql_alchemy_engine()
-
-        with Session(engine) as session:
-            result = session.execute(select(User).where(User.reference == reference)).first()
-            return result
+        return db.session.execute(select(User).where(User.reference == reference)).first()
 
 
     def __repr__(self) -> str:
