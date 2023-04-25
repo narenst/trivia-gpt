@@ -1,3 +1,8 @@
 Flask==2.2.3
+Flask-SQLAlchemy==3.0.3
 dynaconf==3.1.12
 redis==4.5.4
+SQLAlchemy==2.0.9
+ipython==8.12.0
+psycopg2-binary==2.9.6
+pytest==7.3.1
