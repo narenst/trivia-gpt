@@ -6,7 +6,7 @@ DATABASE_HOST = "localhost"
 DATABASE_PORT = 5432
 DATABASE_USER = "postgres"
 DATABASE_PASSWORD = "postgres"
-DATABASE_NAME = "postgres"
+DATABASE_NAME = "triviagpt"
 
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
@@ -18,4 +18,4 @@ REDIS_PORT = 6379
 # Override database name when running tests
 
 TESTING = true
-DATABASE_NAME = "triviagpt_testing"
+DATABASE_NAME = "postgres"
