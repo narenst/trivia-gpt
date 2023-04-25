@@ -10,3 +10,12 @@ DATABASE_NAME = "postgres"
 
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
+
+
+
+[testing]
+
+# Override database name when running tests
+
+TESTING = true
+DATABASE_NAME = "triviagpt_testing"

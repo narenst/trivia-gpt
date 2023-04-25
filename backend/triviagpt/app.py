@@ -5,7 +5,21 @@ from triviagpt.db import init as init_db
 from triviagpt.controllers import blue_print
 
 
-def create_app():
+def load_app_config(app, testing=False):
+    """
+    Load the app configuration.
+    """
+    config = {}
+    if testing:
+        config = {
+            'FORCE_ENV_FOR_DYNACONF': 'testing',
+        }
+
+    FlaskDynaconf(app, settings_files=['settings.toml', '.secrets.toml'], **config)
+    return app
+
+
+def create_app(testing=False):
     """
     Create and configure an instance of the Flask application.
     To run locally:
@@ -15,7 +29,7 @@ def create_app():
     app = Flask(__name__)
     
     # Load flask configuration into app config
-    FlaskDynaconf(app, settings_files=['settings.toml', '.secrets.toml'])
+    load_app_config(app, testing=testing)
 
     # Initialize db engine
     init_db(app)

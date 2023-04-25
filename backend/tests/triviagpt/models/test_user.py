@@ -1,33 +1,24 @@
-import unittest
-import pytest
-
-from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session
-
-
+from triviagpt.db import db
 from triviagpt.models.user import User
 
-class TestUser():
+from tests.triviagpt.conftest import app
 
-    @pytest.fixture(autouse=True)
-    def init_db(self):
-        engine = create_engine('sqlite:///:memory:')
-        BaseModel.metadata.create_all(engine)
-        self.session = Session(engine)
+from sqlalchemy import select
 
-    @classmethod
-    def setUpClass(cls) -> None:
-        engine = create_engine('sqlite:///:memory:')
-        cls.session = Session(engine)
 
-    @classmethod
-    def tearDownClass(cls) -> None:
-        cls.session.close()
+def test_create_user(app):
+    """
+    Test creating a user.
+    And verifying that the user is in the database.
+    """
 
-    @mock.patch('triviagpt.models.user.get_sql_alchemy_engine', return_value=self.session)
-    def test_create_user(self):
-        user1 = User.create_user(username='test_user', reference='test_reference')
+    with app.app_context():
+        
+        print(app.config.current_env)
+        print(app.config.TESTING)
 
-        user_in_db = self.session.execute(select(User).where(User.username == 'test_user')).first()
-        self.assertEqual(user_in_db.username, 'test_user')
-        self.assertEqual(user_in_db.password, 'password')
+        user11 = User.create_user(username='test_user11', reference='test_reference11')
+        user_in_db = db.session.execute(select(User).where(User.username == 'test_user11')).first()
+
+        assert user_in_db[0].username == 'test_user11'
+        assert user_in_db[0].reference == 'test_reference11'
