@@ -56,3 +56,7 @@ jobs:
         pytest
       env:
         DYNACONF_DATABASE_HOST: postgres
+        DYNACONF_DATABASE_PORT: 5432
+        DYNACONF_DATABASE_NAME: postgres
+        DYNACONF_DATABASE_USER: postgres
+        DYNACONF_DATABASE_PASSWORD: postgres
