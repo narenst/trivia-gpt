@@ -1,0 +1,5 @@
+[project]
+name = "triviagpt"
+version = "0.1.0"
+description = "Trivia game using ChatGPT as the trivia host"
+
