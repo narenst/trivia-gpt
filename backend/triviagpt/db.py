@@ -1,14 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 
-engine = None
+
 db = SQLAlchemy()
-
-def get_sql_alchemy_engine():
-    return engine
-
-
-def get_sql_alchemy_db():
-    return db
 
 
 def init(app):
