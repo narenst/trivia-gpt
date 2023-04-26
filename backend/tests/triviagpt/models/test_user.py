@@ -1,9 +1,9 @@
+from tests.triviagpt.conftest import app
 from triviagpt.db import db
 from triviagpt.models.user import User
 
-from tests.triviagpt.conftest import app
-
 from sqlalchemy import select
+from datetime import datetime, timedelta
 
 
 def test_create_user(app):
@@ -22,6 +22,7 @@ def test_create_user(app):
 
         assert user_in_db.username == 'test_user_create'
         assert user_in_db.reference == 'test_reference_create'
+        assert (datetime.utcnow() - user_in_db.dt_created) < timedelta(minutes=10)
         
 
 def test_get_user_by_username(app, test_user):

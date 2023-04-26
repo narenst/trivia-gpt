@@ -1,11 +1,12 @@
-from triviagpt.db import db
+from triviagpt.db import db, utcnow
 from triviagpt.models.base import BaseModel
 
-from sqlalchemy import String, select
+from sqlalchemy import DateTime, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 import random
 import string
+from datetime import datetime
 
 
 class User(db.Model):
@@ -17,6 +18,7 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String(30))
     reference: Mapped[str] = mapped_column(String(30))
+    dt_created: Mapped[datetime] = mapped_column(DateTime, server_default=utcnow())
     
 
 
