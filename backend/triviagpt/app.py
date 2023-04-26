@@ -7,7 +7,7 @@ from triviagpt.controllers import blue_print
 
 def load_app_config(app, testing=False):
     """
-    Load the app configuration.
+    Load the configuration into Flask app using Dynaconf.
     """
     config = {}
     if testing:
