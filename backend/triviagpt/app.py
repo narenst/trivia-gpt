@@ -3,6 +3,7 @@ from dynaconf import FlaskDynaconf
 
 from triviagpt.db import init as init_db
 from triviagpt.controllers import blue_print
+from triviagpt.services import init as init_services
 
 
 def load_app_config(app, testing=False):
@@ -36,5 +37,8 @@ def create_app(testing=False):
     
     # Register routes via blueprints.
     app.register_blueprint(blue_print)
+
+    # Initialize services
+    init_services(app)
 
     return app

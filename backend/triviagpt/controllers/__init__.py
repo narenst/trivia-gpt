@@ -4,3 +4,4 @@ blue_print = Blueprint('main', __name__)
 
 # Importing the controllers here will register the routes.
 from triviagpt.controllers import user
+from triviagpt.controllers import quiz

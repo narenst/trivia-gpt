@@ -20,6 +20,7 @@ class User(db.Model):
     reference: Mapped[str] = mapped_column(String(30))
     dt_created: Mapped[datetime] = mapped_column(DateTime, server_default=utcnow())
     
+    quizzes: Mapped["Quiz"] = db.relationship("Quiz", back_populates="user", cascade="all, delete-orphan")
 
 
     @staticmethod
@@ -59,6 +60,15 @@ class User(db.Model):
             return rows[0]
         else:
             return None
+
+
+    @staticmethod
+    def delete_user(user: "User"):
+        """
+        Delete a user.
+        """
+        db.session.delete(user)
+        db.session.commit()
 
 
     def __repr__(self) -> str:

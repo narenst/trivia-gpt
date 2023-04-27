@@ -13,9 +13,6 @@ def test_create_user(app):
     """
 
     with app.app_context():
-        
-        print(app.config.current_env)
-        print(app.config.TESTING)
 
         user11 = User.create_user(username='test_user_create', reference='test_reference_create')
         user_in_db = db.session.execute(select(User).where(User.username == 'test_user_create')).first()[0]

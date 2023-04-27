@@ -1,6 +1,7 @@
 from triviagpt.app import create_app
 from triviagpt.db import init as init_db, db
 from triviagpt.models.user import User
+from triviagpt.models.quiz import Quiz
 
 import pytest
 from sqlalchemy import text
@@ -37,8 +38,16 @@ def test_user(app):
     """
     with app.app_context():
         user = User.create_user(username='test_user', reference='test_reference')
-        yield user
 
-        db.session.execute(text("DELETE FROM users WHERE id=:id"), {'id': user.id})
-        db.session.commit()
-        db.session.close()
+    yield user
+
+
+@pytest.fixture
+def test_quiz(app, test_user):
+    """
+    Create a test quiz.
+    """
+    with app.app_context():
+        quiz = Quiz.create_quiz(user=test_user, total_questions=10)
+
+    yield quiz

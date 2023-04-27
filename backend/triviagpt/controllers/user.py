@@ -1,6 +1,4 @@
 from triviagpt.controllers import blue_print
-from triviagpt.db import db
-from triviagpt.models.base import BaseModel
 from triviagpt.models.user import User
 
 from sqlalchemy import select

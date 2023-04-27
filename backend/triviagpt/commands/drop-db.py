@@ -8,14 +8,14 @@ import click
 
 app = create_app()
 
-@click.command("setup-db")
-def setup_db():
+@click.command("drop-db")
+def drop_db():
     """
-    Create the database tables.
+    Delete the database tables.
     """
     with app.app_context():
-        db.create_all()
-        print("Database tables created.")
+        db.drop_all()
+        print("Database tables dropped.")
 
 if __name__ == "__main__":
-    setup_db()
+    drop_db()
