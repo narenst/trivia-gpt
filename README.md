@@ -25,6 +25,10 @@ This has the docker-compose file required to setup `postgres` and `redis` needed
 
 This is the terraform configuration for deploying the application into a `staging` and `production` env.
 
+## Datastore
+
+The app uses `postgres` to store the user and quiz models. TODO: Cache ChatGPT response using `Redis`.
+
 ## Configuration
 
 The app is configured using [Dynaconf](https://www.dynaconf.com/flask/). The default settings are present in `backend/settings.toml`. These configuration params will be overridden using environment variables in staging and production.
