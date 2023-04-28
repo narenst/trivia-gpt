@@ -1,5 +1,5 @@
 from triviagpt.app import create_app
-from triviagpt.db import init as init_db, db
+from triviagpt.db import db
 from triviagpt.models.user import User
 from triviagpt.models.quiz import Quiz
 
