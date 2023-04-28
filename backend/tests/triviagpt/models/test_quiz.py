@@ -33,3 +33,13 @@ def test_delete_user_with_quiz(app, test_user, test_quiz):
         User.delete_user(user=test_user)
         assert db.session.execute(select(User).where(User.id == test_user.id)).first() is None
         assert db.session.execute(select(Quiz).where(Quiz.id == test_quiz.id)).first() is None
+
+
+def test_increment_current_question(app, test_user, test_quiz):
+    """
+    Test incrementing the current question.
+    """
+    with app.app_context():
+        assert test_quiz.current_question == 1
+        test_quiz.increment_current_question()
+        assert db.session.execute(select(Quiz).where(Quiz.id == test_quiz.id)).first()[0].current_question == 2

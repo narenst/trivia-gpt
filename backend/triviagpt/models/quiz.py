@@ -51,8 +51,8 @@ class Quiz(db.Model):
         Increment the current question number.
         """
         self.current_question += 1
+        db.session.add(self)
         db.session.commit()
-        db.session.refresh(self)
         return self
     
     def to_dict(self):
@@ -61,6 +61,7 @@ class Quiz(db.Model):
         """
         return {
             "id": self.id,
+            "user_id": self.user_id,
             "total_questions": self.total_questions,
             "current_question": self.current_question,
             "dt_created": self.dt_created

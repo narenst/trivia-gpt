@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 import random
 import string
 from datetime import datetime
+from typing import List
 
 
 class User(db.Model):
@@ -20,7 +21,7 @@ class User(db.Model):
     reference: Mapped[str] = mapped_column(String(30))
     dt_created: Mapped[datetime] = mapped_column(DateTime, server_default=utcnow())
     
-    quizzes: Mapped["Quiz"] = db.relationship("Quiz", back_populates="user", cascade="all, delete-orphan")
+    quizzes: Mapped[List["Quiz"]] = db.relationship("Quiz", back_populates="user", cascade="all, delete-orphan")
 
 
     @staticmethod
@@ -42,12 +43,8 @@ class User(db.Model):
     def get_user_by_username(username: str):
         """
         Get a user by username.
-        """        
-        rows = db.session.execute(select(User).where(User.username == username)).first()
-        if rows:
-            return rows[0]
-        else:
-            return None
+        """
+        return db.session.query(User).filter(User.username == username).first()
 
 
     @staticmethod
@@ -55,11 +52,15 @@ class User(db.Model):
         """
         Get a user by reference.
         """
-        rows = db.session.execute(select(User).where(User.reference == reference)).first()
-        if rows:
-            return rows[0]
-        else:
-            return None
+        return db.session.query(User).filter(User.reference == reference).first()
+
+
+    @staticmethod
+    def get_user_by_id(user_id: int):
+        """
+        Get a user by id.
+        """
+        return db.session.query(User).get(user_id)
 
 
     @staticmethod
@@ -83,8 +84,10 @@ class User(db.Model):
         Return a dictionary representation of the User model.
         """
         return {
+            'id': self.id,
             'username': self.username,
-            'reference': self.reference
+            'reference': self.reference,
+            'quizzes': [quiz.to_dict() for quiz in self.quizzes if self.quizzes] if self.quizzes else []
         }
 
 

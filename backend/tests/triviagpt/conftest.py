@@ -23,7 +23,7 @@ def app():
         db.drop_all()
 
 
-@pytest.fixture
+@pytest.fixture()
 def client(app):
     """
     A test client for the app.
@@ -31,7 +31,7 @@ def client(app):
     return app.test_client()
 
 
-@pytest.fixture
+@pytest.fixture()
 def test_user(app):
     """
     Create a test user.
@@ -42,7 +42,7 @@ def test_user(app):
     yield user
 
 
-@pytest.fixture
+@pytest.fixture()
 def test_quiz(app, test_user):
     """
     Create a test quiz.
